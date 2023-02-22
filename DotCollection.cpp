@@ -24,3 +24,12 @@ DotCollection::DotCollection(int dimension, int numberOfDots)
         dots.push_back(addedDot);
     }
 }
+
+DotCollection::~DotCollection()
+{
+    for (int i = 0; i < dots.size(); i++)
+    {
+        dots.at(i).~Dot();
+    }
+    dots.clear();
+}

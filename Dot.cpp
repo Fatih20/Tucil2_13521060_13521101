@@ -20,6 +20,11 @@ Dot::Dot(vector<double> givenCoordinate)
     coordinates = givenCoordinate;
 };
 
+Dot::~Dot()
+{
+    coordinates.clear();
+}
+
 Dot &Dot::operator=(const Dot &givenDot)
 {
     coordinates = givenDot.coordinates;

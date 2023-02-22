@@ -29,4 +29,10 @@ public:
      * @param numberOfDots
      */
     DotCollection(int dimension, int numberOfDots);
+
+    /**
+     * @brief Destroy the Dot Collection object
+     *
+     */
+    ~DotCollection();
 };
