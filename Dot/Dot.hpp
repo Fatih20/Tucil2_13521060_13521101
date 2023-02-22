@@ -71,4 +71,10 @@ public:
      * @return double
      */
     double getCoordinateAt(int nthDimentsion);
+
+    /**
+     * @brief Print the dot coordinates
+     *
+     */
+    void print();
 };

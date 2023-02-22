@@ -35,4 +35,10 @@ public:
      *
      */
     ~DotCollection();
+
+    /**
+     * @brief Print the dots
+     *
+     */
+    void print();
 };

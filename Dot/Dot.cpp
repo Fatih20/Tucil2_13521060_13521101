@@ -1,4 +1,5 @@
 #include "Dot.hpp"
+#include <iostream>
 
 Dot::Dot() : Dot(3)
 {
@@ -54,3 +55,15 @@ bool Dot::operator==(const Dot &givenDot)
 {
     return coordinates == givenDot.coordinates;
 };
+
+void Dot::print()
+{
+    cout << "(";
+    cout << coordinates.at(0);
+    for (int i = 1; i < coordinates.size() - 1; i++)
+    {
+        cout << coordinates.at(i) << ", ";
+    }
+    cout << coordinates.at(coordinates.size() - 1);
+    cout << ")" << endl;
+}

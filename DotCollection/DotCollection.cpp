@@ -33,3 +33,11 @@ DotCollection::~DotCollection()
     }
     dots.clear();
 }
+
+void DotCollection::print()
+{
+    for (int i = 0; i < dots.size(); i++)
+    {
+        dots.at(i).print();
+    }
+}
