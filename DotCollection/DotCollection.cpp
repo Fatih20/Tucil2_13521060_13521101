@@ -40,4 +40,4 @@ void DotCollection::print()
     {
         dots.at(i).print();
     }
-}
+};
