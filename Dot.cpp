@@ -42,7 +42,7 @@ double Dot::getSquaredDistance(Dot targetDot)
 
 double Dot::getDistance(Dot targetDot)
 {
-    return (pow(getSquaredDistance(targetDot), 1 / coordinates.size()));
+    return (pow(getSquaredDistance(targetDot), 1 / 2));
 }
 
 double Dot::getCoordinateAt(int dimension)
