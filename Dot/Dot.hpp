@@ -4,6 +4,9 @@
 
 using namespace std;
 
+#ifndef DOT
+#define DOT
+
 class Dot
 {
 private:
@@ -78,3 +81,5 @@ public:
      */
     void print();
 };
+
+#endif

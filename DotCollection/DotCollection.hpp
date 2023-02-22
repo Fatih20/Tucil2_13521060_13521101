@@ -4,6 +4,9 @@
 #include "../ClosestPairData/ClosestPairData.hpp"
 
 using namespace std;
+
+#ifndef DOT_COLLECTION
+#define DOT_COLLECTION
 class DotCollection
 {
 private:
@@ -54,3 +57,5 @@ public:
         duration<int> processingDuration = endPoint - startPoint;
     };
 };
+
+#endif

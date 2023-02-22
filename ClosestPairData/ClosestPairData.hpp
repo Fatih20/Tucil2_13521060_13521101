@@ -1,5 +1,8 @@
 #include "../Dot/Dot.hpp"
 
+#ifndef CLOSEST_PAIR_DATA
+#define CLOSEST_PAIR_DATA
+
 class ClosestPairData
 {
 private:
@@ -32,3 +35,5 @@ public:
      */
     Dot getSecondDot();
 };
+
+#endif
