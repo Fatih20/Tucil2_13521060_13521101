@@ -47,15 +47,7 @@ public:
      */
     void print();
 
-    ClosestPairData getClosestPair()
-    {
-        using namespace chrono;
-        time_point<system_clock, duration<int>> startPoint;
-        // Function goes here
-        time_point<system_clock, duration<int>> endPoint;
-
-        duration<int> processingDuration = endPoint - startPoint;
-    };
+    ClosestPairData getClosestPair();
 };
 
 #endif
