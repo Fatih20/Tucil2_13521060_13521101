@@ -25,7 +25,6 @@ DotCollection::DotCollection(int dimension, int numberOfDots) : dotDimension(dim
         dots[j] = addedDot;
         endIndex = i;
     }
-    std::cout << std::endl;
 };
 
 DotCollection::DotCollection(Dot *dotArray, int startIndex, int endIndex) : startIndex(startIndex), endIndex(endIndex)
