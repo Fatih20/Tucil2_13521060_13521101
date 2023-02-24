@@ -29,6 +29,7 @@ Dot::~Dot()
 Dot &Dot::operator=(const Dot &givenDot)
 {
     coordinates = givenDot.coordinates;
+    return *this;
 }
 
 double Dot::getSquaredDistance(Dot targetDot)
@@ -60,10 +61,9 @@ void Dot::print()
 {
     cout << "(";
     cout << coordinates.at(0);
-    for (int i = 1; i < coordinates.size() - 1; i++)
+    for (int i = 1; i < coordinates.size(); i++)
     {
-        cout << coordinates.at(i) << ", ";
+        cout << ", " << coordinates.at(i);
     }
-    cout << coordinates.at(coordinates.size() - 1);
     cout << ")" << endl;
 }

@@ -1,46 +1,49 @@
 #include "DotCollection.hpp"
 
-DotCollection::DotCollection() : dotDimension(3)
+DotCollection::DotCollection(int numberOfDots) : DotCollection(3, numberOfDots){};
+DotCollection::DotCollection(int dimension, int numberOfDots) : dotDimension(dimension), startIndex(0), endIndex(numberOfDots - 1)
 {
-    dots = vector<Dot>(0);
-}
-
-DotCollection::DotCollection(int numberOfDots) : dotDimension(3)
-{
-    dots = vector<Dot>(0);
+    this->dots = new Dot[numberOfDots];
     for (int i = 0; i < numberOfDots; i++)
     {
         Dot addedDot(dotDimension);
-        dots.push_back(addedDot);
+        dots[i] = addedDot;
     }
-}
+};
 
-DotCollection::DotCollection(int dimension, int numberOfDots)
+DotCollection::DotCollection(Dot *dotArray, int startIndex, int endIndex) : startIndex(startIndex), endIndex(endIndex)
 {
-    dots = vector<Dot>(0);
-    for (int i = 0; i < numberOfDots; i++)
-    {
-        Dot addedDot(dimension);
-        dots.push_back(addedDot);
-    }
-}
+    this->dots = dotArray;
+};
 
-DotCollection::~DotCollection()
-{
-    for (int i = 0; i < dots.size(); i++)
-    {
-        dots.at(i).~Dot();
-    }
-    dots.clear();
-}
+DotCollection::~DotCollection(){};
 
 void DotCollection::print()
 {
-    for (int i = 0; i < dots.size(); i++)
+    for (int i = startIndex; i < endIndex; i++)
     {
-        dots.at(i).print();
+        this->dots[i].print();
     }
 };
+
+void DotCollection::clear()
+{
+    for (int i = startIndex; i < endIndex; i++)
+    {
+        this->dots[i].~Dot();
+    }
+    delete[] this->dots;
+}
+
+Dot DotCollection::at(int index)
+{
+    return this->dots[startIndex + index];
+}
+
+bool DotCollection::inRange(int index)
+{
+    return index <= endIndex - startIndex && index >= 0;
+}
 
 ClosestPairData DotCollection::getClosestPair()
 {

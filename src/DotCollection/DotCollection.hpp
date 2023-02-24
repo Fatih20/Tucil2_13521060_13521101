@@ -1,6 +1,6 @@
 #include <vector>
 #include <chrono>
-#include "Dot.hpp"
+#include "../Dot/Dot.hpp"
 #include "../ClosestPairData/ClosestPairData.hpp"
 
 using namespace std;
@@ -10,22 +10,27 @@ using namespace std;
 class DotCollection
 {
 private:
-    vector<Dot> dots;
+    Dot *dots;
+    int startIndex;
+    int endIndex;
     int dotDimension;
 
 public:
     /**
      * @brief Construct a new Dot Collection object
      *
+     * @param numberOfDots
      */
-    DotCollection();
+    DotCollection(int numberOfDots);
 
     /**
      * @brief Construct a new Dot Collection object
      *
-     * @param numberOfDots
+     * @param dotArray
+     * @param startIndex
+     * @param endIndex
      */
-    DotCollection(int numberOfDots);
+    DotCollection(Dot *dotArray, int startIndex, int endIndex);
 
     /**
      * @brief Construct a new Dot Collection object
@@ -46,6 +51,29 @@ public:
      *
      */
     void print();
+
+    /**
+     * @brief Delete the array allocated to for the collection
+     *
+     */
+    void clear();
+
+    /**
+     * @brief Return the element at the given index. Undefined behaviour when index > endIndex - startIndex
+     *
+     * @param index
+     * @return Dot
+     */
+    Dot at(int index);
+
+    /**
+     * @brief Determine if the index is within the range of the collection or not
+     *
+     * @param index
+     * @return true index is within range
+     * @return false index is not within range
+     */
+    bool inRange(int index);
 
     ClosestPairData getClosestPair();
 };
