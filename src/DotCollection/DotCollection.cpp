@@ -45,6 +45,12 @@ bool DotCollection::inRange(int index)
     return index <= endIndex - startIndex && index >= 0;
 }
 
+DotCollection *DotCollection::createSubCollection(int startIndex, int endIndex)
+{
+    DotCollection *subCollection = new DotCollection(this->dots, startIndex, endIndex);
+    return subCollection;
+}
+
 ClosestPairData DotCollection::getClosestPair()
 {
     using namespace chrono;

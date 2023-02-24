@@ -75,6 +75,22 @@ public:
      */
     bool inRange(int index);
 
+    /**
+     * @brief Return the number of dots in the dot collection
+     *
+     * @return int
+     */
+    int length();
+
+    /**
+     * @brief Create a sob collection of the dot collection object
+     *
+     * @param startIndex
+     * @param endIndex
+     * @return DotCollection&
+     */
+    DotCollection *createSubCollection(int startIndex, int endIndex);
+
     ClosestPairData getClosestPair();
 };
 
