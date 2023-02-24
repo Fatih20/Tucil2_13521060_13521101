@@ -54,6 +54,14 @@ public:
     bool operator==(const Dot &);
 
     /**
+     * @brief Determine if a dot is on the left of another dot on the x-axis
+     *
+     * @return true the dot on the left of the operator is on the left of the other dot
+     * @return false the dot on the left of the operator is on the right of the other dot
+     */
+    bool operator<(const Dot &);
+
+    /**
      * @brief Get the square of the distance of this dot to the targetDot. It's assumed the target dot has the same dimension.
      *
      * @param targetDot

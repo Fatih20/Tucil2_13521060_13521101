@@ -57,6 +57,11 @@ bool Dot::operator==(const Dot &givenDot)
     return coordinates == givenDot.coordinates;
 };
 
+bool Dot::operator<(const Dot &givenDot)
+{
+    return coordinates.at(0) < givenDot.coordinates.at(0);
+};
+
 void Dot::print()
 {
     cout << "(";

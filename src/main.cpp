@@ -3,9 +3,12 @@
 
 int main()
 {
-    DotCollection dc(3, 90);
-    DotCollection dc2 = *(dc.createSubCollection(5, 90));
-    dc.at(0).print();
-    dc.at(5).print();
-    dc2.at(0).print();
+    DotCollection dc(2, 10);
+    dc.print();
+    // DotCollection dc2 = *(dc.createSubCollection(5, 90));
+    // dc.at(0).print();
+    // dc.at(5).print();
+    // dc2.at(0).print();
+
+    // dc.clear();
 }
