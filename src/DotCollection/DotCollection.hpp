@@ -11,9 +11,10 @@ class DotCollection
 {
 private:
     Dot *dots;
-    int startIndex;
-    int endIndex;
-    int dotDimension;
+    const int startIndex;
+    const int endIndex;
+    const int dotDimension;
+    const long maxCheckedDots;
 
 public:
     /**
@@ -26,11 +27,11 @@ public:
     /**
      * @brief Construct a new Dot Collection object
      *
-     * @param dotArray
+     * @param parentCollection
      * @param startIndex
      * @param endIndex
      */
-    DotCollection(Dot *dotArray, int startIndex, int endIndex);
+    DotCollection(const DotCollection &parentCollection, int startIndex, int endIndex);
 
     /**
      * @brief Construct a new Dot Collection object

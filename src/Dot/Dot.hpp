@@ -68,14 +68,14 @@ public:
      * @return double
      */
 
-    double getSquaredDistance(Dot targetDot);
+    double getSquaredDistance(Dot &targetDot);
     /**
      * @brief Get the distance of this dot to the targetDot. It's assumed the target dot has the same dimension.
      *
      * @param targetDot
      * @return double
      */
-    double getDistance(Dot targetDot);
+    double getDistance(Dot &targetDot);
     /**
      * @brief Get the coordinate at nthDimension
      * @param nthDimension the desired dimension of coordinate to be fetched

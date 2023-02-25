@@ -32,7 +32,7 @@ Dot &Dot::operator=(const Dot &givenDot)
     return *this;
 }
 
-double Dot::getSquaredDistance(Dot targetDot)
+double Dot::getSquaredDistance(Dot &targetDot)
 {
     double sum = 0;
     for (int i = 0; i < coordinates.size(); i++)
@@ -42,9 +42,9 @@ double Dot::getSquaredDistance(Dot targetDot)
     return sum;
 };
 
-double Dot::getDistance(Dot targetDot)
+double Dot::getDistance(Dot &targetDot)
 {
-    return (pow(getSquaredDistance(targetDot), 1 / 2));
+    return sqrt(getSquaredDistance(targetDot));
 }
 
 double Dot::getCoordinateAt(int dimension)

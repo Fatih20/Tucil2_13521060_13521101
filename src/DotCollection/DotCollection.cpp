@@ -4,7 +4,7 @@
 #include <cmath>
 
 DotCollection::DotCollection(int numberOfDots) : DotCollection(3, numberOfDots){};
-DotCollection::DotCollection(int dimension, int numberOfDots) : dotDimension(dimension), startIndex(0), endIndex(numberOfDots)
+DotCollection::DotCollection(int dimension, int numberOfDots) : dotDimension(dimension), startIndex(0), endIndex(numberOfDots), maxCheckedDots(2 * pow(3, dimension))
 {
     this->dots = new Dot[numberOfDots];
     for (int i = 0; i < numberOfDots; i++)
@@ -14,9 +14,9 @@ DotCollection::DotCollection(int dimension, int numberOfDots) : dotDimension(dim
     std::sort(this->dots, this->dots + numberOfDots, Dot::compare);
 };
 
-DotCollection::DotCollection(Dot *dotArray, int startIndex, int endIndex) : startIndex(startIndex), endIndex(endIndex)
+DotCollection::DotCollection(const DotCollection &parentCollection, int startIndex, int endIndex) : startIndex(startIndex), endIndex(endIndex), dotDimension(parentCollection.dotDimension), maxCheckedDots(parentCollection.maxCheckedDots)
 {
-    this->dots = dotArray;
+    this->dots = parentCollection.dots;
 };
 
 DotCollection::~DotCollection(){};
@@ -56,7 +56,7 @@ int DotCollection::length()
 
 DotCollection DotCollection::createSubCollection(int startIndex, int endIndex)
 {
-    return DotCollection(this->dots, this->startIndex + startIndex, this->startIndex + endIndex);
+    return DotCollection(*this, this->startIndex + startIndex, this->startIndex + endIndex);
 }
 
 pair<DotCollection, DotCollection> DotCollection::createCollectionWithinMiddle(double delta)
@@ -64,7 +64,6 @@ pair<DotCollection, DotCollection> DotCollection::createCollectionWithinMiddle(d
     int len = length();
     int middleIdx = len / 2;
     double median = at(middleIdx).getCoordinateAt(0);
-    cout << "MEDIAN = " << median << endl;
     int startIdx = middleIdx;
     for (int i = 0; i < middleIdx; i++)
     {
@@ -83,7 +82,6 @@ pair<DotCollection, DotCollection> DotCollection::createCollectionWithinMiddle(d
             break;
         }
     }
-    cout << startIdx << ' ' << endIdx;
     return pair<DotCollection, DotCollection>(createSubCollection(startIdx, middleIdx), createSubCollection(middleIdx, endIdx));
 }
 
@@ -103,18 +101,18 @@ ClosestPairData DotCollection::getClosestPair()
         }
         if (len == 2)
         {
-            Dot first = at(0);
-            Dot second = at(1);
+            Dot &first = at(0);
+            Dot &second = at(1);
             return ClosestPairData(&first, &second, first.getDistance(second));
         }
 
         ClosestPairData closest(NULL, NULL, INFINITY);
         for (int i = 0; i < 2; i++)
         {
-            Dot first = at(i);
+            Dot &first = at(i);
             for (int j = i + 1; j < 3; j++)
             {
-                Dot second = at(j);
+                Dot &second = at(j);
                 double distance = first.getDistance(second);
                 if (closest.getDistance() > distance)
                     closest = ClosestPairData(&first, &second, distance);
@@ -131,7 +129,36 @@ ClosestPairData DotCollection::getClosestPair()
 
     pair<DotCollection, DotCollection> aroundMiddle = createCollectionWithinMiddle(delta);
 
-    // TODO: get closest around left and right middle
+    for (int i = 0; i < aroundMiddle.first.length(); i++)
+    {
+        long count = 0;
+        Dot &left = aroundMiddle.first[i];
+        for (int j = 0; j < aroundMiddle.second.length(); j++)
+        {
+            bool needToCheck = true;
+            Dot &right = aroundMiddle.second[i];
+            for (int k = 0; k < dotDimension; k++)
+            {
+                if (abs(left[k] - right[k]) > delta)
+                {
+                    needToCheck = false;
+                    break;
+                };
+            }
+            if (needToCheck)
+            {
+                double distance = left.getDistance(right);
+                if (distance < delta)
+                {
+                    delta = distance;
+                    closest = ClosestPairData(&left, &right, distance);
+                    count++;
+                    if (count == maxCheckedDots)
+                        break;
+                }
+            }
+        }
+    }
 
     return closest;
 };
