@@ -72,3 +72,8 @@ void Dot::print()
     }
     cout << ")" << endl;
 }
+
+bool Dot::compare(Dot *dot1, Dot *dot2)
+{
+    return (*dot1) < (*dot2);
+}

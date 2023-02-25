@@ -88,6 +88,12 @@ public:
      *
      */
     void print();
+
+    /**
+     * @brief Compare two dots (for sorting)
+     *
+     */
+    static bool compare(Dot *dot1, Dot *dot2);
 };
 
 #endif
