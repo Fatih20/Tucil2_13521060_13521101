@@ -64,7 +64,15 @@ public:
      * @param index
      * @return Dot
      */
-    Dot at(int index);
+    Dot &at(int index);
+
+    /**
+     * @brief Return the element at the given index. Undefined behaviour when index > endIndex - startIndex
+     *
+     * @param index
+     * @return Dot
+     */
+    Dot &operator[](int index);
 
     /**
      * @brief Determine if the index is within the range of the collection or not
@@ -83,13 +91,21 @@ public:
     int length();
 
     /**
-     * @brief Create a sob collection of the dot collection object
+     * @brief Create a sob collection of the dot collection object (startIndex and endIndex is relative from the dotCollection)
      *
      * @param startIndex
      * @param endIndex
      * @return DotCollection&
      */
-    DotCollection *createSubCollection(int startIndex, int endIndex);
+    DotCollection createSubCollection(int startIndex, int endIndex);
+
+    /**
+     * @brief Create two dot collections in range of middle at delta distance (left and right)
+     *
+     * @param delta sparsity
+     * @return pair<DotCollection, DotCollection> left
+     */
+    pair<DotCollection, DotCollection> createCollectionWithinMiddle(double delta);
 
     /**
      * @brief Get the middle separator of the collection

@@ -1,30 +1,17 @@
 #include "DotCollection.hpp"
+#include <algorithm>
 #include <iostream>
+#include <cmath>
 
 DotCollection::DotCollection(int numberOfDots) : DotCollection(3, numberOfDots){};
-DotCollection::DotCollection(int dimension, int numberOfDots) : dotDimension(dimension), startIndex(0)
+DotCollection::DotCollection(int dimension, int numberOfDots) : dotDimension(dimension), startIndex(0), endIndex(numberOfDots)
 {
     this->dots = new Dot[numberOfDots];
-    for (int i = startIndex; i < numberOfDots; i++)
+    for (int i = 0; i < numberOfDots; i++)
     {
-        Dot addedDot(dotDimension);
-        bool foundPos = false;
-        int j = 0;
-        while (j < i && !foundPos)
-        {
-            foundPos = (addedDot < this->dots[j]);
-            j += foundPos ? 0 : 1;
-        };
-        if (foundPos)
-        {
-            for (int k = i; k > j; k--)
-            {
-                this->dots[k] = this->dots[k - 1];
-            }
-        }
-        dots[j] = addedDot;
-        endIndex = i;
+        this->dots[i] = Dot(dimension);
     }
+    std::sort(this->dots, this->dots + numberOfDots, Dot::compare);
 };
 
 DotCollection::DotCollection(Dot *dotArray, int startIndex, int endIndex) : startIndex(startIndex), endIndex(endIndex)
@@ -36,40 +23,72 @@ DotCollection::~DotCollection(){};
 
 void DotCollection::print()
 {
-    for (int i = startIndex; i <= endIndex; i++)
+    for (int i = 0; i < length(); i++)
     {
-        this->dots[i].print();
+        at(i).print();
     }
 };
 
 void DotCollection::clear()
 {
-    for (int i = startIndex; i < endIndex; i++)
-    {
-        this->dots[i].~Dot();
-    }
     delete[] this->dots;
 }
 
-Dot DotCollection::at(int index)
+Dot &DotCollection::at(int index)
+{
+    return this->dots[startIndex + index];
+}
+
+Dot &DotCollection::operator[](int index)
 {
     return this->dots[startIndex + index];
 }
 
 bool DotCollection::inRange(int index)
 {
-    return index <= endIndex - startIndex && index >= 0;
+    return index < length() && index >= 0;
 }
 
-DotCollection *DotCollection::createSubCollection(int startIndex, int endIndex)
+int DotCollection::length()
 {
-    DotCollection *subCollection = new DotCollection(this->dots, startIndex, endIndex);
-    return subCollection;
+    return endIndex - startIndex;
+}
+
+DotCollection DotCollection::createSubCollection(int startIndex, int endIndex)
+{
+    return DotCollection(this->dots, this->startIndex + startIndex, this->startIndex + endIndex);
+}
+
+pair<DotCollection, DotCollection> DotCollection::createCollectionWithinMiddle(double delta)
+{
+    int len = length();
+    int middleIdx = len / 2;
+    double median = at(middleIdx).getCoordinateAt(0);
+    cout << "MEDIAN = " << median << endl;
+    int startIdx = middleIdx;
+    for (int i = 0; i < middleIdx; i++)
+    {
+        if (median - at(i)[0] <= delta)
+        {
+            startIdx = i;
+            break;
+        }
+    }
+
+    int endIdx;
+    for (endIdx = middleIdx + 1; endIdx < len; endIdx++)
+    {
+        if (at(endIdx)[0] - median > delta)
+        {
+            break;
+        }
+    }
+    cout << startIdx << ' ' << endIdx;
+    return pair<DotCollection, DotCollection>(createSubCollection(startIdx, middleIdx), createSubCollection(middleIdx, endIdx));
 }
 
 double DotCollection::getMiddleSeparator()
 {
-
     return (at(endIndex).getCoordinateAt(1) - at(startIndex).getCoordinateAt(1)) / 2;
 }
 
