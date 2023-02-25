@@ -118,6 +118,16 @@ public:
      * @return int
      */
     static void resetTotalEuclidean();
+
+    /**
+     * @brief Return whether this dot is at least delta distance from givenDot
+     *
+     * @param givenDot compared dot
+     * @param delta
+     * @return true the distance between the two point is at least delta
+     * @return false the distance between the two point could be more than delta
+     */
+    bool bottomBoundDistance(double delta, Dot &givenDot);
 };
 
 #endif

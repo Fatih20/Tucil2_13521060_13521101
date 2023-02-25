@@ -108,13 +108,6 @@ public:
      */
     pair<DotCollection, DotCollection> createCollectionWithinMiddle(double delta);
 
-    /**
-     * @brief Get the middle separator of the collection
-     *
-     * @return double
-     */
-    double getMiddleSeparator();
-
     ClosestPairData getClosestPair();
 
     ClosestPairData getClosestPairBruteForce();

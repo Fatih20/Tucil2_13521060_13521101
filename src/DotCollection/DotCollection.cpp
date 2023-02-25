@@ -85,40 +85,12 @@ pair<DotCollection, DotCollection> DotCollection::createCollectionWithinMiddle(d
     return pair<DotCollection, DotCollection>(createSubCollection(startIdx, middleIdx), createSubCollection(middleIdx, endIdx));
 }
 
-double DotCollection::getMiddleSeparator()
-{
-    return (at(endIndex).getCoordinateAt(1) - at(startIndex).getCoordinateAt(1)) / 2;
-}
-
 ClosestPairData DotCollection::getClosestPair()
 {
     int len = length();
     if (len <= 3)
     {
-        if (len == 1)
-        {
-            throw "Cant calculate distance of 1 dot";
-        }
-        if (len == 2)
-        {
-            Dot &first = at(0);
-            Dot &second = at(1);
-            return ClosestPairData(&first, &second, first.getDistance(second));
-        }
-
-        ClosestPairData closest(NULL, NULL, INFINITY);
-        for (int i = 0; i < 2; i++)
-        {
-            Dot &first = at(i);
-            for (int j = i + 1; j < 3; j++)
-            {
-                Dot &second = at(j);
-                double distance = first.getDistance(second);
-                if (closest.getDistance() > distance)
-                    closest = ClosestPairData(&first, &second, distance);
-            }
-        }
-        return closest;
+        return getClosestPairBruteForce();
     }
 
     int middleIdx = len / 2;
@@ -135,17 +107,8 @@ ClosestPairData DotCollection::getClosestPair()
         Dot &left = aroundMiddle.first[i];
         for (int j = 0; j < aroundMiddle.second.length(); j++)
         {
-            bool needToCheck = true;
             Dot &right = aroundMiddle.second[i];
-            for (int k = 0; k < dotDimension; k++)
-            {
-                if (abs(left[k] - right[k]) > delta)
-                {
-                    needToCheck = false;
-                    break;
-                };
-            }
-            if (needToCheck)
+            if (!left.bottomBoundDistance(delta, right))
             {
                 double distance = left.getDistance(right);
                 if (distance < delta)
@@ -167,22 +130,37 @@ ClosestPairData DotCollection::getClosestPairBruteForce()
 {
     int len = length();
 
-    if (len == 1)
+    switch (len)
     {
-        throw "Cant calculate distance of 1 dot";
+    case 1:
+    {
+        throw "Can't calculate distance of 1 dot.";
     }
+    break;
+    case 2:
+    {
 
-    ClosestPairData closest(NULL, NULL, INFINITY);
-    for (int i = 0; i < len - 1; i++)
-    {
-        Dot &first = at(i);
-        for (int j = i + 1; j < len; j++)
-        {
-            Dot &second = at(j);
-            double distance = first.getDistance(second);
-            if (closest.getDistance() > distance)
-                closest = ClosestPairData(&first, &second, distance);
-        }
+        Dot &first = at(0);
+        Dot &second = at(1);
+        return ClosestPairData(&first, &second, first.getDistance(second));
     }
-    return closest;
+    break;
+    default:
+    {
+        ClosestPairData closest(NULL, NULL, INFINITY);
+        for (int i = 0; i < len - 1; i++)
+        {
+            Dot &first = at(i);
+            for (int j = i + 1; j < len; j++)
+            {
+                Dot &second = at(j);
+                double distance = first.getDistance(second);
+                if (closest.getDistance() > distance)
+                    closest = ClosestPairData(&first, &second, distance);
+            }
+        }
+        return closest;
+    }
+    break;
+    }
 }

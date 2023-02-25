@@ -118,3 +118,23 @@ void Dot::resetTotalEuclidean()
 {
     Dot::totalEuclidean = 0;
 }
+
+bool Dot::bottomBoundDistance(double delta, Dot &givenDot)
+{
+    bool moreThan = false;
+    for (int i = 0; i < dimension; i++)
+    {
+        moreThan = (abs(getCoordinateAt(i) - givenDot[i]) > delta);
+        if (moreThan)
+        {
+            break;
+        }
+    }
+    // int i = 0;
+    // while (lessThan && i < dimension)
+    // {
+    //     lessThan = abs(getCoordinateAt(i) - givenDot[i]) <= delta;
+    //     i += lessThan;
+    // }
+    return moreThan;
+}
