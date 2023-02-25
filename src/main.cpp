@@ -4,8 +4,12 @@
 
 int main()
 {
-    const int dimension = 5;
-    const int pointCount = 10000;
+    int dimension;
+    cout << "Enter the dimension of the space : ";
+    cin >> dimension;
+    int pointCount;
+    cout << "Enter the number of points : ";
+    cin >> pointCount;
     srand(time(NULL));
     DotCollection dc(dimension, pointCount);
 
@@ -19,7 +23,7 @@ int main()
     auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
     cout << "DIVIDE AND CONQUER\n";
     cout << (double)duration.count() / 1e6 << " seconds" << endl;
-    cout << "TOTAL COMPARISON: " << Dot::getTotalEuclidean() << endl;
+    cout << "TOTAL DISTANCE CALCULATION : " << Dot::getTotalEuclidean() << endl;
 
     closest.getFirstDot().print();
     closest.getSecondDot().print();
@@ -28,12 +32,11 @@ int main()
     start = high_resolution_clock::now();
     ClosestPairData closestBrute = dc.getClosestPairBruteForce();
     end = high_resolution_clock::now();
-    // cout << "TOTAL COMPARISON :" << DotCollection::
 
     duration = chrono::duration_cast<chrono::microseconds>(end - start);
     cout << "BRUTE FORCE\n";
     cout << (double)duration.count() / 1e6 << " seconds" << endl;
-    cout << "TOTAL COMPARISON: " << Dot::getTotalEuclidean() << endl;
+    cout << "TOTAL DISTANCE CALCULATION : " << Dot::getTotalEuclidean() << endl;
 
     closest.getFirstDot().print();
     closest.getSecondDot().print();
