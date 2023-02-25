@@ -130,11 +130,5 @@ bool Dot::bottomBoundDistance(double delta, Dot &givenDot)
             break;
         }
     }
-    // int i = 0;
-    // while (lessThan && i < dimension)
-    // {
-    //     lessThan = abs(getCoordinateAt(i) - givenDot[i]) <= delta;
-    //     i += lessThan;
-    // }
     return moreThan;
 }
