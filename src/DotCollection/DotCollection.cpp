@@ -94,10 +94,44 @@ double DotCollection::getMiddleSeparator()
 
 ClosestPairData DotCollection::getClosestPair()
 {
-    using namespace chrono;
-    time_point<system_clock, duration<int>> startPoint;
-    // Function goes here
-    time_point<system_clock, duration<int>> endPoint;
+    int len = length();
+    if (len <= 3)
+    {
+        if (len == 1)
+        {
+            throw "Cant calculate distance of 1 dot";
+        }
+        if (len == 2)
+        {
+            Dot first = at(0);
+            Dot second = at(1);
+            return ClosestPairData(&first, &second, first.getDistance(second));
+        }
 
-    duration<int> processingDuration = endPoint - startPoint;
+        ClosestPairData closest(NULL, NULL, INFINITY);
+        for (int i = 0; i < 2; i++)
+        {
+            Dot first = at(i);
+            for (int j = i + 1; j < 3; j++)
+            {
+                Dot second = at(j);
+                double distance = first.getDistance(second);
+                if (closest.getDistance() > distance)
+                    closest = ClosestPairData(&first, &second, distance);
+            }
+        }
+        return closest;
+    }
+
+    int middleIdx = len / 2;
+    ClosestPairData closeLeft = createSubCollection(0, middleIdx).getClosestPair();
+    ClosestPairData closeRight = createSubCollection(middleIdx, len).getClosestPair();
+    ClosestPairData &closest = closeLeft.getDistance() < closeRight.getDistance() ? closeLeft : closeRight;
+    double delta = closest.getDistance();
+
+    pair<DotCollection, DotCollection> aroundMiddle = createCollectionWithinMiddle(delta);
+
+    // TODO: get closest around left and right middle
+
+    return closest;
 };
