@@ -11,10 +11,9 @@ class Dot
 {
 private:
     vector<double> coordinates;
-
-public:
     static long totalEuclidean;
 
+public:
     /**
      * @brief Construct a new Dot object with default dimension of 3
      *
@@ -103,6 +102,20 @@ public:
      *
      */
     static bool compare(Dot &dot1, Dot &dot2);
+
+    /**
+     * @brief Get the total euclidean variable
+     *
+     * @return int
+     */
+    static int getTotalEuclidean();
+
+    /**
+     * @brief Reset the total euclidean calculation to zero
+     *
+     * @return int
+     */
+    static void resetTotalEuclidean();
 };
 
 #endif

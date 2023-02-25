@@ -19,20 +19,21 @@ int main()
     auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
     cout << "DIVIDE AND CONQUER\n";
     cout << (double)duration.count() / 1e6 << " seconds" << endl;
-    cout << "TOTAL COMPARISON: " << Dot::totalEuclidean << endl;
+    cout << "TOTAL COMPARISON: " << Dot::getTotalEuclidean() << endl;
 
     closest.getFirstDot().print();
     closest.getSecondDot().print();
     cout << closest.getDistance() << endl;
-    Dot::totalEuclidean = 0;
+    Dot::resetTotalEuclidean();
     start = high_resolution_clock::now();
     ClosestPairData closestBrute = dc.getClosestPairBruteForce();
     end = high_resolution_clock::now();
+    // cout << "TOTAL COMPARISON :" << DotCollection::
 
     duration = chrono::duration_cast<chrono::microseconds>(end - start);
     cout << "BRUTE FORCE\n";
     cout << (double)duration.count() / 1e6 << " seconds" << endl;
-    cout << "TOTAL COMPARISON: " << Dot::totalEuclidean << endl;
+    cout << "TOTAL COMPARISON: " << Dot::getTotalEuclidean() << endl;
 
     closest.getFirstDot().print();
     closest.getSecondDot().print();

@@ -85,3 +85,13 @@ bool Dot::compare(Dot &dot1, Dot &dot2)
 {
     return dot1 < dot2;
 }
+
+int Dot::getTotalEuclidean()
+{
+    return Dot::totalEuclidean;
+}
+
+void Dot::resetTotalEuclidean()
+{
+    Dot::totalEuclidean = 0;
+}
