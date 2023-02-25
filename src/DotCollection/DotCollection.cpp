@@ -162,3 +162,27 @@ ClosestPairData DotCollection::getClosestPair()
 
     return closest;
 };
+
+ClosestPairData DotCollection::getClosestPairBruteForce()
+{
+    int len = length();
+
+    if (len == 1)
+    {
+        throw "Cant calculate distance of 1 dot";
+    }
+
+    ClosestPairData closest(NULL, NULL, INFINITY);
+    for (int i = 0; i < len - 1; i++)
+    {
+        Dot &first = at(i);
+        for (int j = i + 1; j < len; j++)
+        {
+            Dot &second = at(j);
+            double distance = first.getDistance(second);
+            if (closest.getDistance() > distance)
+                closest = ClosestPairData(&first, &second, distance);
+        }
+    }
+    return closest;
+}

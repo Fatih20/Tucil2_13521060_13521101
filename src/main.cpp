@@ -1,15 +1,39 @@
 #include "Dot/Dot.hpp"
 #include "DotCollection/DotCollection.hpp"
+#include <iostream>
 
 int main()
 {
-    DotCollection dc(2, 10);
-    dc.print();
-    dc.getMiddleSeparator();
-    // DotCollection dc2 = *(dc.createSubCollection(5, 90));
-    // dc.at(0).print();
-    // dc.at(5).print();
-    // dc2.at(0).print();
+    const int dimension = 5;
+    const int pointCount = 10000;
+    srand(time(NULL));
+    DotCollection dc(dimension, pointCount);
 
-    // dc.clear();
+    cout << "TOTAL POINTS: " << dc.length() << endl;
+    cout << "DIMENSION: " << dimension << endl;
+    using namespace chrono;
+    auto start = high_resolution_clock::now();
+    ClosestPairData closest = dc.getClosestPair();
+    auto end = high_resolution_clock::now();
+
+    auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "DIVIDE AND CONQUER\n";
+    cout << (double)duration.count() / 1e6 << " seconds" << endl;
+
+    closest.getFirstDot().print();
+    closest.getSecondDot().print();
+    cout << closest.getDistance() << endl;
+
+    start = high_resolution_clock::now();
+    ClosestPairData closestBrute = dc.getClosestPairBruteForce();
+    end = high_resolution_clock::now();
+
+    duration = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "BRUTE FORCE\n";
+    cout << (double)duration.count() / 1e6 << " seconds" << endl;
+
+    closest.getFirstDot().print();
+    closest.getSecondDot().print();
+    cout << closest.getDistance() << endl;
+    return 0;
 }

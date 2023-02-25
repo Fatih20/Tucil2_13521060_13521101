@@ -116,6 +116,8 @@ public:
     double getMiddleSeparator();
 
     ClosestPairData getClosestPair();
+
+    ClosestPairData getClosestPairBruteForce();
 };
 
 #endif
