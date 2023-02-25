@@ -15,26 +15,38 @@ Dot::Dot(int dimension)
     std::default_random_engine generator(rd());
     std::uniform_real_distribution<double> distribution(-1000, 1000);
 
-    coordinates = {};
+    coordinates = new double[dimension];
+    this->dimension = dimension;
+
     for (int i = 0; i < dimension; i++)
     {
-        coordinates.push_back(distribution(generator));
+        coordinates[i] = distribution(generator);
     }
 }
 
-Dot::Dot(vector<double> givenCoordinate)
+Dot::Dot(const Dot &givenDot)
 {
-    coordinates = givenCoordinate;
-};
+    this->dimension = givenDot.dimension;
+    this->coordinates = new double[dimension];
+    for (int i = 0; i < dimension; i++)
+    {
+        coordinates[i] = givenDot[i];
+    }
+}
 
 Dot::~Dot()
 {
-    coordinates.clear();
+    delete[] coordinates;
 }
 
 Dot &Dot::operator=(const Dot &givenDot)
 {
-    coordinates = givenDot.coordinates;
+    this->dimension = givenDot.dimension;
+    this->coordinates = new double[dimension];
+    for (int i = 0; i < dimension; i++)
+    {
+        coordinates[i] = givenDot[i];
+    }
     return *this;
 }
 
@@ -42,7 +54,7 @@ double Dot::getSquaredDistance(Dot &targetDot)
 {
     Dot::totalEuclidean++;
     double sum = 0;
-    for (int i = 0; i < coordinates.size(); i++)
+    for (int i = 0; i < dimension; i++)
     {
         sum += pow(getCoordinateAt(i) - targetDot.getCoordinateAt(i), 2);
     }
@@ -54,33 +66,40 @@ double Dot::getDistance(Dot &targetDot)
     return sqrt(getSquaredDistance(targetDot));
 }
 
-double Dot::getCoordinateAt(int dimension)
+double Dot::getCoordinateAt(int dimension) const
 {
-    return coordinates.at(dimension);
+    return coordinates[dimension];
 }
 
-double Dot::operator[](int dimension)
+double Dot::operator[](int nthDimension) const
 {
-    return coordinates.at(dimension);
+    return coordinates[nthDimension];
 }
 
 bool Dot::operator==(const Dot &givenDot)
 {
-    return coordinates == givenDot.coordinates;
+    bool same = dimension == givenDot.dimension;
+    int i = 0;
+    while (same && i < dimension)
+    {
+        same = givenDot[i] == getCoordinateAt(i);
+        i += same;
+    }
+    return same;
 };
 
 bool Dot::operator<(const Dot &givenDot)
 {
-    return coordinates.at(0) < givenDot.coordinates.at(0);
+    return getCoordinateAt(0) < givenDot[0];
 };
 
 void Dot::print()
 {
     cout << "(";
-    cout << coordinates.at(0);
-    for (int i = 1; i < coordinates.size(); i++)
+    cout << getCoordinateAt(0);
+    for (int i = 1; i < dimension; i++)
     {
-        cout << ", " << coordinates.at(i);
+        cout << ", " << getCoordinateAt(i);
     }
     cout << ")" << endl;
 }

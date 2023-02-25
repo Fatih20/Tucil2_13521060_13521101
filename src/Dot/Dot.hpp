@@ -10,7 +10,8 @@ using namespace std;
 class Dot
 {
 private:
-    vector<double> coordinates;
+    double *coordinates;
+    int dimension;
     static long totalEuclidean;
 
 public:
@@ -28,17 +29,18 @@ public:
     Dot(int dimension);
 
     /**
-     * @brief Construct a new Dot object from the givenCoordinate
-     *
-     * @param givenCoordinate
-     */
-    Dot(vector<double> givenCoordinate);
-
-    /**
      * @brief Destroy the Dot object
      *
      */
     ~Dot();
+
+    /**
+     * @brief Copy constructor for Dot
+     *
+     * @param givenCoordinate
+     * @return Dot&
+     */
+    Dot(const Dot &givenDot);
 
     /**
      * @brief Construct a new Dot object using the assignment operator
@@ -82,14 +84,14 @@ public:
      * @param nthDimension the desired dimension of coordinate to be fetched
      * @return double
      */
-    double getCoordinateAt(int nthDimentsion);
+    double getCoordinateAt(int nthDimentsion) const;
 
     /**
      * @brief Get the coordinate at nthDimension
      * @param nthDimension the desired dimension of coordinate to be fetched
      * @return double
      */
-    double operator[](int nthDimentsion);
+    double operator[](int nthDimentsion) const;
 
     /**
      * @brief Print the dot coordinates
