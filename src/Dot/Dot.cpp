@@ -1,5 +1,6 @@
 #include "Dot.hpp"
 #include <iostream>
+#include <random>
 
 long Dot::totalEuclidean = 0;
 
@@ -9,12 +10,15 @@ Dot::Dot() : Dot(3)
 
 Dot::Dot(int dimension)
 {
+
+    std::random_device rd;
+    std::default_random_engine generator(rd());
+    std::uniform_real_distribution<double> distribution(-1000, 1000);
+
     coordinates = {};
     for (int i = 0; i < dimension; i++)
     {
-        double randomCoordinate = rand() % 1000;
-        double sign = rand() % 2 == 0 ? -1 : 1;
-        coordinates.push_back(sign * randomCoordinate);
+        coordinates.push_back(distribution(generator));
     }
 }
 
