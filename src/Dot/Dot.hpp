@@ -13,6 +13,8 @@ private:
     vector<double> coordinates;
 
 public:
+    static long totalEuclidean;
+
     /**
      * @brief Construct a new Dot object with default dimension of 3
      *

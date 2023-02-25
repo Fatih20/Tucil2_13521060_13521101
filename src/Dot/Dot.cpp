@@ -1,6 +1,8 @@
 #include "Dot.hpp"
 #include <iostream>
 
+long Dot::totalEuclidean = 0;
+
 Dot::Dot() : Dot(3)
 {
 }
@@ -44,6 +46,7 @@ double Dot::getSquaredDistance(Dot &targetDot)
 
 double Dot::getDistance(Dot &targetDot)
 {
+    Dot::totalEuclidean++;
     return sqrt(getSquaredDistance(targetDot));
 }
 
