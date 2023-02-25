@@ -1274,7 +1274,6 @@ namespace matplotlibcpp
       throw std::runtime_error("Call to figure() failed.");
 
     PyObject *gca_kwargs = PyDict_New();
-    PyDict_SetItemString(gca_kwargs, "projection", PyString_FromString("3d"));
 
     PyObject *gca = PyObject_GetAttrString(fig, "gca");
     if (!gca)
@@ -2480,6 +2479,21 @@ namespace matplotlibcpp
       throw std::runtime_error("Call to subplot() failed.");
 
     Py_DECREF(args);
+    Py_DECREF(res);
+  }
+
+  inline void subplot(string projection)
+  {
+    detail::_interpreter::get();
+
+    PyObject *kwargs = PyDict_New();
+    PyDict_SetItemString(kwargs, "projection", PyString_FromString(projection.c_str()));
+
+    PyObject *res = PyObject_Call(detail::_interpreter::get().s_python_function_subplot, detail::_interpreter::get().s_python_empty_tuple, kwargs);
+    if (!res)
+      throw std::runtime_error("Call to subplot() failed.");
+
+    Py_DECREF(kwargs);
     Py_DECREF(res);
   }
 
