@@ -84,6 +84,13 @@ public:
     double getCoordinateAt(int nthDimentsion);
 
     /**
+     * @brief Get the coordinate at nthDimension
+     * @param nthDimension the desired dimension of coordinate to be fetched
+     * @return double
+     */
+    double operator[](int nthDimentsion);
+
+    /**
      * @brief Print the dot coordinates
      *
      */
@@ -93,7 +100,7 @@ public:
      * @brief Compare two dots (for sorting)
      *
      */
-    static bool compare(Dot *dot1, Dot *dot2);
+    static bool compare(Dot &dot1, Dot &dot2);
 };
 
 #endif

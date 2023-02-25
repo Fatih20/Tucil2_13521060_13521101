@@ -49,7 +49,12 @@ double Dot::getDistance(Dot targetDot)
 
 double Dot::getCoordinateAt(int dimension)
 {
-    return coordinates.at(dimension - 1);
+    return coordinates.at(dimension);
+}
+
+double Dot::operator[](int dimension)
+{
+    return coordinates.at(dimension);
 }
 
 bool Dot::operator==(const Dot &givenDot)
@@ -73,7 +78,7 @@ void Dot::print()
     cout << ")" << endl;
 }
 
-bool Dot::compare(Dot *dot1, Dot *dot2)
+bool Dot::compare(Dot &dot1, Dot &dot2)
 {
-    return (*dot1) < (*dot2);
+    return dot1 < dot2;
 }
