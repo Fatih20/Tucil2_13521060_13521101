@@ -67,6 +67,12 @@ DotCollection *DotCollection::createSubCollection(int startIndex, int endIndex)
     return subCollection;
 }
 
+double DotCollection::getMiddleSeparator()
+{
+
+    return (at(endIndex).getCoordinateAt(1) - at(startIndex).getCoordinateAt(1)) / 2;
+}
+
 ClosestPairData DotCollection::getClosestPair()
 {
     using namespace chrono;

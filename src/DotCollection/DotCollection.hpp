@@ -91,6 +91,13 @@ public:
      */
     DotCollection *createSubCollection(int startIndex, int endIndex);
 
+    /**
+     * @brief Get the middle separator of the collection
+     *
+     * @return double
+     */
+    double getMiddleSeparator();
+
     ClosestPairData getClosestPair();
 };
 
