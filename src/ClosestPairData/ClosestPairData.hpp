@@ -8,13 +8,14 @@ class ClosestPairData
 private:
     Dot firstDot;
     Dot secondDot;
+    double distance;
 
 public:
     /**
      * @brief Construct a new Closest Pair Data object
      *
      */
-    ClosestPairData(Dot firstDot, Dot secondDot);
+    ClosestPairData(Dot firstDot, Dot secondDot, double distance);
     /**
      * @brief Destroy the Closest Pair Data object
      *
@@ -26,14 +27,21 @@ public:
      *
      * @return Dot
      */
-    Dot getFirstDot();
+    Dot getFirstDot() const;
 
     /**
      * @brief Get the second dot object
      *
      * @return Dot
      */
-    Dot getSecondDot();
+    Dot getSecondDot() const;
+
+    /**
+     * @brief Get the distance between dots
+     *
+     * @return distance
+     */
+    double getDistance() const;
 };
 
 #endif
