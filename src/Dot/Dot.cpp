@@ -12,7 +12,7 @@ Dot::Dot(int dimension)
     coordinates = {};
     for (int i = 0; i < dimension; i++)
     {
-        double randomCoordinate = rand();
+        double randomCoordinate = rand() % 1000;
         double sign = rand() % 2 == 0 ? -1 : 1;
         coordinates.push_back(sign * randomCoordinate);
     }
@@ -36,6 +36,7 @@ Dot &Dot::operator=(const Dot &givenDot)
 
 double Dot::getSquaredDistance(Dot &targetDot)
 {
+    Dot::totalEuclidean++;
     double sum = 0;
     for (int i = 0; i < coordinates.size(); i++)
     {
@@ -46,7 +47,6 @@ double Dot::getSquaredDistance(Dot &targetDot)
 
 double Dot::getDistance(Dot &targetDot)
 {
-    Dot::totalEuclidean++;
     return sqrt(getSquaredDistance(targetDot));
 }
 
