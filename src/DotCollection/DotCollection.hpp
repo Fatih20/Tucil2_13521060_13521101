@@ -92,6 +92,12 @@ public:
     int length();
 
     /**
+     * @brief Sort the dots inside of the dots collection
+     *
+     */
+    void sort();
+
+    /**
      * @brief Create a sob collection of the dot collection object (startIndex and endIndex is relative from the dotCollection)
      *
      * @param startIndex

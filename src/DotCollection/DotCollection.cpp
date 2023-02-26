@@ -11,7 +11,8 @@ DotCollection::DotCollection(int dimension, int numberOfDots) : dotDimension(dim
     {
         this->dots[i] = Dot(dimension);
     }
-    std::sort(this->dots, this->dots + numberOfDots, Dot::compare);
+    // std::sort(this->dots, this->dots + numberOfDots, Dot::compare);
+    // sort();
 };
 
 DotCollection::DotCollection(const DotCollection &parentCollection, int startIndex, int endIndex) : startIndex(startIndex), endIndex(endIndex), dotDimension(parentCollection.dotDimension), maxCheckedDots(parentCollection.maxCheckedDots)
@@ -52,6 +53,63 @@ bool DotCollection::inRange(int index)
 int DotCollection::length()
 {
     return endIndex - startIndex;
+}
+
+void DotCollection::sort()
+{
+    cout << length() << endl;
+    int length = this->length();
+    print();
+    if (length <= 1)
+    {
+        return;
+    }
+
+    switch (length)
+    {
+    case 2:
+    {
+        if (at(1) < at(0))
+        {
+            at(1).swap(at(0));
+        }
+    }
+    break;
+    default:
+    {
+        int rightPointer = endIndex;
+        int leftPointer = startIndex;
+        Dot pivot = at(startIndex);
+
+        while (leftPointer < rightPointer && leftPointer < endIndex && rightPointer >= startIndex)
+        {
+            cout << leftPointer << endl;
+            cout << rightPointer << endl;
+
+            do
+            {
+                leftPointer++;
+            } while (at(leftPointer) < pivot && leftPointer < endIndex - 1);
+
+            do
+            {
+                rightPointer--;
+            } while (at(rightPointer) > pivot && rightPointer > startIndex);
+
+            at(leftPointer).swap(at(rightPointer));
+        }
+
+        cout << "Exited the loop" << endl;
+        at(leftPointer).swap(at(rightPointer));
+        at(rightPointer).swap(at(startIndex));
+
+        DotCollection dcLeft = createSubCollection(startIndex, rightPointer);
+        DotCollection dcRight = createSubCollection(rightPointer + 1, endIndex);
+        dcLeft.sort();
+        dcRight.sort();
+    }
+    break;
+    }
 }
 
 DotCollection DotCollection::createSubCollection(int startIndex, int endIndex)

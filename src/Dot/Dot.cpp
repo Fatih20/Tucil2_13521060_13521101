@@ -93,6 +93,32 @@ bool Dot::operator<(const Dot &givenDot)
     return getCoordinateAt(0) < givenDot[0];
 };
 
+bool Dot::operator>(const Dot &givenDot)
+{
+    return getCoordinateAt(0) > givenDot[0];
+};
+
+bool Dot::operator<=(const Dot &givenDot)
+{
+    return *this < givenDot || *this == givenDot;
+};
+
+bool Dot::operator>=(const Dot &givenDot)
+{
+    return *this > givenDot || *this == givenDot;
+};
+
+void Dot::swap(Dot &givenDot)
+{
+    int tempDimension = givenDot.dimension;
+    double *tempCoordinates = givenDot.coordinates;
+
+    givenDot.dimension = dimension;
+    dimension = tempDimension;
+    givenDot.coordinates = this->coordinates;
+    this->coordinates = tempCoordinates;
+}
+
 void Dot::print()
 {
     cout << "(";
