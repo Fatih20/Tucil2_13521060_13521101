@@ -11,8 +11,7 @@ DotCollection::DotCollection(int dimension, int numberOfDots) : dotDimension(dim
     {
         this->dots[i] = Dot(dimension);
     }
-    // std::sort(this->dots, this->dots + numberOfDots, Dot::compare);
-    // sort();
+    sort();
 };
 
 DotCollection::DotCollection(const DotCollection &parentCollection, int startIndex, int endIndex) : startIndex(startIndex), endIndex(endIndex), dotDimension(parentCollection.dotDimension), maxCheckedDots(parentCollection.maxCheckedDots)
@@ -57,9 +56,7 @@ int DotCollection::length()
 
 void DotCollection::sort()
 {
-    cout << length() << endl;
     int length = this->length();
-    print();
     if (length <= 1)
     {
         return;
@@ -77,34 +74,30 @@ void DotCollection::sort()
     break;
     default:
     {
-        int rightPointer = endIndex;
-        int leftPointer = startIndex;
-        Dot pivot = at(startIndex);
+        int rightPointer = length;
+        int leftPointer = 0;
+        Dot pivot = at(0);
 
-        while (leftPointer < rightPointer && leftPointer < endIndex && rightPointer >= startIndex)
+        while (leftPointer < rightPointer && leftPointer < length && rightPointer >= 0)
         {
-            cout << leftPointer << endl;
-            cout << rightPointer << endl;
-
             do
             {
                 leftPointer++;
-            } while (at(leftPointer) < pivot && leftPointer < endIndex - 1);
+            } while (at(leftPointer) < pivot && leftPointer < length - 1);
 
             do
             {
                 rightPointer--;
-            } while (at(rightPointer) > pivot && rightPointer > startIndex);
+            } while (at(rightPointer) > pivot && rightPointer > 0);
 
             at(leftPointer).swap(at(rightPointer));
         }
 
-        cout << "Exited the loop" << endl;
         at(leftPointer).swap(at(rightPointer));
-        at(rightPointer).swap(at(startIndex));
+        at(rightPointer).swap(at(0));
 
-        DotCollection dcLeft = createSubCollection(startIndex, rightPointer);
-        DotCollection dcRight = createSubCollection(rightPointer + 1, endIndex);
+        DotCollection dcLeft = createSubCollection(0, rightPointer);
+        DotCollection dcRight = createSubCollection(rightPointer + 1, length);
         dcLeft.sort();
         dcRight.sort();
     }
