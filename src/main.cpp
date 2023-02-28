@@ -1,6 +1,6 @@
 #include "Dot/Dot.hpp"
 #include "DotCollection/DotCollection.hpp"
-#include "Visualizer/visualizer.hpp"
+// #include "Visualizer/visualizer.hpp"
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -32,16 +32,25 @@ int main()
     cout << (double)duration.count() / 1e6 << " seconds" << endl;
     cout << "Number of Distance Calculation : " << Dot::getTotalEuclidean() << endl;
 
+    cout << dc.getTotalDotInTheMiddle() << endl;
+    cout << dc.getTotalSubProblemJoin() << endl;
+    cout << dc.getAverageDotInTheMiddle() << endl;
+    cout << dc.getMaxDotInTheMiddle() << endl;
+    cout << dc.getAvgTopPercentileOfDotsInTheMiddle() << endl;
+
+    /*
     cout << "First Dot" << endl;
     closest.getFirstDot().print();
     cout << "Second Dot" << endl;
     closest.getSecondDot().print();
     cout << "Distance" << endl;
     cout << closest.getDistance() << endl;
+    */
 
     cout << endl
          << endl;
 
+    /*
     // Reset the euclidean distance counter
     Dot::resetTotalEuclidean();
 
@@ -63,10 +72,12 @@ int main()
     cout << "Distance" << endl;
     cout << closest.getDistance() << endl;
 
+    */
+
     // Visualize the result if it's in 3D
-    if (dimension == 3)
-    {
-        visualizeDots(dc, closest);
-    }
+    // if (dimension == 3)
+    // {
+    //     visualizeDots(dc, closest);
+    // }
     return 0;
 }

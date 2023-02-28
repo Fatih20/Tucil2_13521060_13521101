@@ -15,6 +15,8 @@ private:
     const int endIndex;
     const int dotDimension;
     const long maxCheckedDots;
+    static int totalSubProblemJoin;
+    static vector<int> dotsInTheMiddle;
 
 public:
     /**
@@ -117,6 +119,20 @@ public:
     ClosestPairData getClosestPair();
 
     ClosestPairData getClosestPairBruteForce();
+
+    int getTotalDotInTheMiddle();
+
+    int getTotalSubProblemJoin();
+
+    double getAverageDotInTheMiddle();
+
+    int getMaxDotInTheMiddle();
+
+    int getMedianDotInTheMiddle();
+
+    void addDotsInTheMiddle(int);
+
+    int getAvgTopPercentileOfDotsInTheMiddle();
 };
 
 #endif

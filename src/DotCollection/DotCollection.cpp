@@ -3,6 +3,9 @@
 #include <iostream>
 #include <cmath>
 
+int DotCollection::totalSubProblemJoin = 0;
+vector<int> DotCollection::dotsInTheMiddle(0);
+
 DotCollection::DotCollection(int numberOfDots) : DotCollection(3, numberOfDots){};
 DotCollection::DotCollection(int dimension, int numberOfDots) : dotDimension(dimension), startIndex(0), endIndex(numberOfDots), maxCheckedDots(2 * pow(3, dimension))
 {
@@ -158,6 +161,8 @@ ClosestPairData DotCollection::getClosestPair()
         return getClosestPairBruteForce();
     }
 
+    totalSubProblemJoin += 1;
+
     // Get the closest distance between left and right subcollection
     int middleIdx = len / 2;
     ClosestPairData closeLeft = createSubCollection(0, middleIdx).getClosestPair();
@@ -166,6 +171,7 @@ ClosestPairData DotCollection::getClosestPair()
     double delta = closest.getDistance();
 
     pair<DotCollection, DotCollection> aroundMiddle = createCollectionWithinMiddle(delta);
+    addDotsInTheMiddle(aroundMiddle.first.length() + aroundMiddle.second.length());
 
     // Check each of the dots left of the middle against the dots right of the middle up to the max chacked dots
     for (int i = 0; i < aroundMiddle.first.length(); i++)
@@ -176,7 +182,8 @@ ClosestPairData DotCollection::getClosestPair()
         {
             Dot &right = aroundMiddle.second[i];
             // Ensure checking isn't done if difference in distance at any one axis is already more than delta
-            if (!left.bottomBoundDistance(delta, right))
+            // if (!left.bottomBoundDistance(delta, right))
+            if (true)
             {
                 double distance = left.getDistance(right);
                 if (distance < delta)
@@ -233,3 +240,73 @@ ClosestPairData DotCollection::getClosestPairBruteForce()
     break;
     }
 }
+
+int DotCollection::getTotalDotInTheMiddle()
+{
+    int sum = 0;
+    for (int i = 0; i < DotCollection::dotsInTheMiddle.size(); i++)
+    {
+        sum += dotsInTheMiddle.at(i);
+    }
+    return sum;
+};
+
+int DotCollection::getTotalSubProblemJoin()
+{
+    return DotCollection::totalSubProblemJoin;
+};
+
+double DotCollection::getAverageDotInTheMiddle()
+{
+    return getTotalDotInTheMiddle() / getTotalSubProblemJoin();
+};
+
+void DotCollection::addDotsInTheMiddle(int newDotsInTheMiddle)
+{
+    dotsInTheMiddle.push_back(newDotsInTheMiddle);
+}
+
+int DotCollection::getMaxDotInTheMiddle()
+{
+    int max = DotCollection::dotsInTheMiddle.at(0);
+    for (int i = 0; i < DotCollection::dotsInTheMiddle.size(); i++)
+    {
+        if (max < DotCollection::dotsInTheMiddle.at(i))
+        {
+            max = DotCollection::dotsInTheMiddle.at(i);
+        }
+    }
+    return max;
+}
+
+int DotCollection::getMedianDotInTheMiddle()
+{
+    size_t n = dotsInTheMiddle.size() / 2;
+    std::nth_element(dotsInTheMiddle.begin(), dotsInTheMiddle.begin() + n, dotsInTheMiddle.end());
+    int median = dotsInTheMiddle[n];
+    if (dotsInTheMiddle.size() % 2 == 1)
+    {
+        return median;
+    }
+    else
+    {
+        std::nth_element(dotsInTheMiddle.begin(), dotsInTheMiddle.begin() + n - 1, dotsInTheMiddle.end());
+        return 0.5 * (median + dotsInTheMiddle[n - 1]);
+    }
+}
+
+int DotCollection::getAvgTopPercentileOfDotsInTheMiddle()
+{
+    std::sort(dotsInTheMiddle.begin(), dotsInTheMiddle.end(), [](int a, int b) -> bool
+              { return a < b; });
+    int sum = 0;
+    // cout << "Printing the percentiles" << endl;
+    for (int i = dotsInTheMiddle.size() - 1; i > 0.9 * dotsInTheMiddle.size(); i--)
+    {
+        // cout << dotsInTheMiddle.at(i) << endl;
+        sum += dotsInTheMiddle.at(i);
+    }
+
+    // cout << "Stopped printing" << endl;
+    return sum / (0.1 * dotsInTheMiddle.size());
+};
