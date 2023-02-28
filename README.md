@@ -33,5 +33,5 @@ Setelah itu, program dapat dijalankan dengan cara:
 
 ## Author
 Program ini dibuat oleh:
-- 13521060 - Fatih Narendra R.I.
+- 13521060 - Fatih Nararya R.I.
 - 13521101 - Arsa Izdihar Islam
