@@ -34,5 +34,9 @@ void visualizeDots(DotCollection &dc, ClosestPairData &closest)
   }
   // scatter main vector
   plt::scatter(x, y, z, 1.0, {{"color", "blue"}}, fig, 0.25);
+  plt::xlabel("X");
+  plt::ylabel("Y");
+  plt::set_zlabel("Z");
+
   plt::show();
 }
