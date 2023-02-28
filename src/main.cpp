@@ -32,11 +32,18 @@ int main()
     cout << (double)duration.count() / 1e6 << " seconds" << endl;
     cout << "Number of Distance Calculation : " << Dot::getTotalEuclidean() << endl;
 
-    cout << dc.getTotalDotInTheMiddle() << endl;
-    cout << dc.getTotalSubProblemJoin() << endl;
-    cout << dc.getAverageDotInTheMiddle() << endl;
-    cout << dc.getMaxDotInTheMiddle() << endl;
-    cout << dc.getAvgTopPercentileOfDotsInTheMiddle() << endl;
+    // cout << dc.getTotalDotInTheMiddle() << endl;
+    // cout << dc.getTotalSubProblemJoin() << endl;
+    cout << "Dots" << endl;
+    cout << "Avg: " << dc.getAverageDotInTheMiddle() << endl;
+    cout << "Max :" << dc.getMaxDotInTheMiddle() << endl;
+    cout << "Top Percentile Avg : " << dc.getAvgTopPercentileOfDotsInTheMiddle() << endl;
+
+    cout << "Deltas" << endl;
+    cout << "Avg: " << dc.getAverageDeltaSquared() << endl;
+    cout << "Max :" << dc.getMaxDeltaSquared() << endl;
+    cout << "Min :" << dc.getMinDeltaSquared() << endl;
+    cout << "Top Percentile Avg : " << dc.getAvgTopPercentileDeltaSquared() << endl;
 
     /*
     cout << "First Dot" << endl;

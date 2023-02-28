@@ -17,6 +17,7 @@ private:
     const long maxCheckedDots;
     static int totalSubProblemJoin;
     static vector<int> dotsInTheMiddle;
+    static vector<int> deltasSquared;
 
 public:
     /**
@@ -133,6 +134,18 @@ public:
     void addDotsInTheMiddle(int);
 
     int getAvgTopPercentileOfDotsInTheMiddle();
+
+    void addDeltaSquared(int);
+
+    double getAverageDeltaSquared();
+
+    int getMaxDeltaSquared();
+
+    int getMinDeltaSquared();
+
+    int getAvgTopPercentileDeltaSquared();
+
+    int getTotalDeltaSquared();
 };
 
 #endif

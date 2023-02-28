@@ -5,6 +5,7 @@
 
 int DotCollection::totalSubProblemJoin = 0;
 vector<int> DotCollection::dotsInTheMiddle(0);
+vector<int> DotCollection::deltasSquared(0);
 
 DotCollection::DotCollection(int numberOfDots) : DotCollection(3, numberOfDots){};
 DotCollection::DotCollection(int dimension, int numberOfDots) : dotDimension(dimension), startIndex(0), endIndex(numberOfDots), maxCheckedDots(2 * pow(3, dimension))
@@ -172,6 +173,7 @@ ClosestPairData DotCollection::getClosestPair()
 
     pair<DotCollection, DotCollection> aroundMiddle = createCollectionWithinMiddle(delta);
     addDotsInTheMiddle(aroundMiddle.first.length() + aroundMiddle.second.length());
+    addDeltaSquared(pow(delta, 2) / dotDimension);
 
     // Check each of the dots left of the middle against the dots right of the middle up to the max chacked dots
     for (int i = 0; i < aroundMiddle.first.length(); i++)
@@ -309,4 +311,66 @@ int DotCollection::getAvgTopPercentileOfDotsInTheMiddle()
 
     // cout << "Stopped printing" << endl;
     return sum / (0.1 * dotsInTheMiddle.size());
+};
+
+int DotCollection::getTotalDeltaSquared()
+{
+    int sum = 0;
+    for (int i = 0; i < DotCollection::deltasSquared.size(); i++)
+    {
+        sum += deltasSquared.at(i);
+    }
+    return sum;
+};
+
+double DotCollection::getAverageDeltaSquared()
+{
+    return getTotalDeltaSquared() / getTotalSubProblemJoin();
+};
+
+void DotCollection::addDeltaSquared(int newDotsInTheMiddle)
+{
+    deltasSquared.push_back(newDotsInTheMiddle);
+}
+
+int DotCollection::getMaxDeltaSquared()
+{
+    int max = DotCollection::deltasSquared.at(0);
+    for (int i = 0; i < DotCollection::deltasSquared.size(); i++)
+    {
+        if (max < DotCollection::deltasSquared.at(i))
+        {
+            max = DotCollection::deltasSquared.at(i);
+        }
+    }
+    return max;
+}
+
+int DotCollection::getMinDeltaSquared()
+{
+    int min = DotCollection::deltasSquared.at(0);
+    for (int i = 0; i < DotCollection::deltasSquared.size(); i++)
+    {
+        if (min > DotCollection::deltasSquared.at(i))
+        {
+            min = DotCollection::deltasSquared.at(i);
+        }
+    }
+    return min;
+}
+
+int DotCollection::getAvgTopPercentileDeltaSquared()
+{
+    std::sort(deltasSquared.begin(), deltasSquared.end(), [](int a, int b) -> bool
+              { return a < b; });
+    int sum = 0;
+    // cout << "Printing the percentiles" << endl;
+    for (int i = deltasSquared.size() - 1; i > 0.9 * deltasSquared.size(); i--)
+    {
+        // cout << deltasSquared.at(i) << endl;
+        sum += deltasSquared.at(i);
+    }
+
+    // cout << "Stopped printing" << endl;
+    return sum / (0.1 * deltasSquared.size());
 };
