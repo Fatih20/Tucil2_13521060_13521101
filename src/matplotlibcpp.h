@@ -1197,7 +1197,8 @@ namespace matplotlibcpp
                const std::vector<NumericZ> &z,
                const double s = 1.0, // The marker size in points**2
                const std::map<std::string, std::string> &keywords = {},
-               const long fig_number = 0)
+               const long fig_number = 0,
+               const double alpha = 1.0)
   {
     detail::_interpreter::get();
 
@@ -1254,6 +1255,7 @@ namespace matplotlibcpp
       PyDict_SetItemString(kwargs, it->first.c_str(),
                            PyString_FromString(it->second.c_str()));
     }
+    PyDict_SetItemString(kwargs, "alpha", PyFloat_FromDouble(alpha));
     PyObject *fig_args = PyTuple_New(1);
     PyObject *fig = nullptr;
     PyTuple_SetItem(fig_args, 0, PyLong_FromLong(fig_number));
