@@ -17,34 +17,50 @@ int main()
     DotCollection dc(dimension, pointCount);
 
     using namespace chrono;
+
+    // Do the calculation with the DnC algorithm and measure the time
     auto start = high_resolution_clock::now();
     ClosestPairData closest = dc.getClosestPair();
     auto end = high_resolution_clock::now();
-
     auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
-    cout << "Devide et Impera\n";
+
+    // Print out the result
+    cout << "Devide et Impera" << endl;
     cout << (double)duration.count() / 1e6 << " seconds" << endl;
     cout << "Number of Distance Calculation : " << Dot::getTotalEuclidean() << endl;
 
+    cout << "First Dot" << endl;
     closest.getFirstDot().print();
+    cout << "Second Dot" << endl;
     closest.getSecondDot().print();
+    cout << "Distance" << endl;
     cout << closest.getDistance() << endl;
 
+    cout << endl
+         << endl;
+
+    // Reset the euclidean distance counter
     Dot::resetTotalEuclidean();
 
+    // Do the calculation with the brute force algorithm and measure the time
     start = high_resolution_clock::now();
     ClosestPairData closestBrute = dc.getClosestPairBruteForce();
     end = high_resolution_clock::now();
-    cout << endl;
     duration = chrono::duration_cast<chrono::microseconds>(end - start);
+
+    // Print out the result
     cout << "Smol brain O(n^2)\n";
     cout << (double)duration.count() / 1e6 << " seconds" << endl;
     cout << "Number of Distance Calculation : " << Dot::getTotalEuclidean() << endl;
 
+    cout << "First Dot" << endl;
     closest.getFirstDot().print();
+    cout << "Second Dot" << endl;
     closest.getSecondDot().print();
+    cout << "Distance" << endl;
     cout << closest.getDistance() << endl;
 
+    // Visualize the result if it's in 3D
     if (dimension == 3)
     {
         visualizeDots(dc, closest);

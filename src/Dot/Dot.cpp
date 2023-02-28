@@ -11,12 +11,16 @@ Dot::Dot() : Dot(3)
 Dot::Dot(int dimension)
 {
 
+    // Create random floating point number generator with the range of -1000 to 1000
     std::random_device rd;
     std::default_random_engine generator(rd());
     std::uniform_real_distribution<double> distribution(-1000, 1000);
 
+    // Initialize array of coordinate value
     coordinates = new double[dimension];
     this->dimension = dimension;
+
+    // Fill the array with randomized alue
 
     for (int i = 0; i < dimension; i++)
     {
@@ -26,6 +30,7 @@ Dot::Dot(int dimension)
 
 Dot::Dot(const Dot &givenDot)
 {
+    // Make an array with the exact same content as the givenDot
     this->dimension = givenDot.dimension;
     this->coordinates = new double[dimension];
     for (int i = 0; i < dimension; i++)
@@ -36,11 +41,13 @@ Dot::Dot(const Dot &givenDot)
 
 Dot::~Dot()
 {
+    // Deallocate the coordinate array created with new
     delete[] coordinates;
 }
 
 Dot &Dot::operator=(const Dot &givenDot)
 {
+    // Copy the content of the givenDot
     this->dimension = givenDot.dimension;
     this->coordinates = new double[dimension];
     for (int i = 0; i < dimension; i++)
@@ -52,7 +59,9 @@ Dot &Dot::operator=(const Dot &givenDot)
 
 double Dot::getSquaredDistance(Dot &targetDot)
 {
+    // Increment the number of euclidean calculation counter
     Dot::totalEuclidean++;
+    // Sum the square of the difference for all coordinate
     double sum = 0;
     for (int i = 0; i < dimension; i++)
     {
@@ -78,6 +87,7 @@ double Dot::operator[](int nthDimension) const
 
 bool Dot::operator==(const Dot &givenDot)
 {
+    // Compare each of the coordinate
     bool same = dimension == givenDot.dimension;
     int i = 0;
     while (same && i < dimension)
@@ -110,6 +120,7 @@ bool Dot::operator>=(const Dot &givenDot)
 
 void Dot::swap(Dot &givenDot)
 {
+    // Swap the content of two dot
     int tempDimension = givenDot.dimension;
     double *tempCoordinates = givenDot.coordinates;
 
@@ -121,6 +132,7 @@ void Dot::swap(Dot &givenDot)
 
 void Dot::print()
 {
+    // Print the dot with the format '(x1, x2, x3, ..., xn)'
     cout << "(";
     cout << getCoordinateAt(0);
     for (int i = 1; i < dimension; i++)
@@ -147,6 +159,7 @@ void Dot::resetTotalEuclidean()
 
 bool Dot::bottomBoundDistance(double delta, Dot &givenDot)
 {
+    // Compare the difference of each coordinate with the delta
     bool moreThan = false;
     for (int i = 0; i < dimension; i++)
     {
