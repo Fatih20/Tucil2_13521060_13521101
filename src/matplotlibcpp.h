@@ -840,7 +840,6 @@ namespace matplotlibcpp
       throw std::runtime_error("Call to figure() failed.");
 
     PyObject *gca_kwargs = PyDict_New();
-    PyDict_SetItemString(gca_kwargs, "projection", PyString_FromString("3d"));
 
     PyObject *gca = PyObject_GetAttrString(fig, "gca");
     if (!gca)
