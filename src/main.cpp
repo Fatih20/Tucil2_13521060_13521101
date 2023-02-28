@@ -7,6 +7,7 @@ using namespace std;
 
 int main()
 {
+    // Ask the dimension of and number of points from user
     int dimension;
     cout << "Enter the dimension of the space : ";
     cin >> dimension;
@@ -14,6 +15,8 @@ int main()
     cout << "Enter the number of points : ";
     cin >> pointCount;
     cout << endl;
+
+    // Initialize dot collection according to the given parameters
     DotCollection dc(dimension, pointCount);
 
     using namespace chrono;
