@@ -7,7 +7,7 @@ Program ini merupakan program yang dapat menyelesaikan permasalahan _closest poi
 Program ini menggunakan bahasa pemrograman C++, [matplotlib](https://matplotlib.org/) untuk visualisasi dari bahasa Python, dan juga CMake untuk _compile_ dan linking ke header C dari python sehingga requirements untuk program ini adalah:
 - Compiler c++ ([MinGW](https://www.mingw-w64.org/))
 - [Python (versi 3)](https://www.python.org/) dan install matplotlib
-- [CMake (minimal versi 3.23)](https://cmake.org/)
+- [CMake (minimal versi 3.16)](https://cmake.org/)
 ### Kompilasi
   Program dapat di-_compile_ dengan cara:
 ```bash
