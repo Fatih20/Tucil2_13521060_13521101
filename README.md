@@ -30,6 +30,14 @@ Setelah itu, program dapat dijalankan dengan cara:
 # Untuk Linux
 ./output
 ```
+Atau bisa langsung menjalankan dari folder bin yang sudah ada:
+```bash
+# Untuk Windows
+./bin/output.exe
+
+# Untuk Linux
+./bin/output
+```
 
 ## Author
 Program ini dibuat oleh:
